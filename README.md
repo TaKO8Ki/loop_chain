@@ -10,6 +10,13 @@
 
 </div>
 
+## Dependencies
+
+```toml
+[dependencies]
+loop_chain = "0.1.0-beta"
+```
+
 ## Reference
 
 - [if_chain](https://github.com/lambda-fairy/if_chain)
