@@ -75,6 +75,60 @@ macro_rules! __loop_chain {
 
 #[cfg(test)]
 mod test {
+    use super::loop_chain;
     #[test]
-    fn test_loop_chain() {}
+    fn test_for() {
+        let mut success = false;
+        loop_chain! {
+            for _ in vec![1, 2];
+            then {
+                success = true
+            }
+        }
+        assert!(success)
+    }
+
+    #[test]
+    fn test_while() {
+        let mut success = false;
+        let mut x = 1;
+        loop_chain! {
+            while x < 2;
+            then {
+                x += 1;
+                success = true
+            }
+        }
+        assert!(success)
+    }
+
+    #[test]
+    fn test_while_let() {
+        let mut success = false;
+        let mut vec = vec![1, 2];
+        loop_chain! {
+            while let Some(_) = vec.pop();
+            then {
+                success = true
+            }
+        }
+        assert!(success)
+    }
+
+    #[test]
+    fn test_loop() {
+        let mut success = false;
+        let mut x = 1;
+        loop_chain! {
+            loop;
+            then {
+                if x > 2 {
+                    break
+                }
+                success = true;
+                x += 1;
+            }
+        }
+        assert!(success)
+    }
 }
