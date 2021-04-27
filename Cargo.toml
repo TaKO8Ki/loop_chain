@@ -1,7 +1,14 @@
 [package]
 name = "loop_chain"
-version = "0.1.0"
+version = "0.1.0-beta.0"
 authors = ["Takayuki <takoyaki0316@gmail.com>"]
 edition = "2018"
+license = "MIT"
+description = "Macro for writing nested Loop expressions"
+homepage = "https://github.com/TaKO8Ki/loop_chain"
+repository = "https://github.com/TaKO8Ki/loop_chain"
+documentation = "https://docs.rs/loop_chain"
+readme = "README.md"
+categories = [ "no-std", "rust-patterns" ]
 
 [dependencies]
