@@ -67,7 +67,7 @@ macro_rules! __loop_chain {
 
     (@expand { $($other:tt)* } $stmt:stmt; $($tt:tt)+) => {
         {
-            $stmt;
+            $stmt
             __loop_chain! { @expand { $($other)* } $($tt)+ }
         }
     };
@@ -128,6 +128,36 @@ mod test {
                 success = true;
                 x += 1;
             }
+        }
+        assert!(success)
+    }
+
+    #[test]
+    fn test_nested_loops() {
+        let mut success = false;
+        let mut x = 1;
+        let mut y = 1;
+        loop_chain! {
+            for _ in 0..10;
+            while y < 5;
+            y += 1;
+            loop;
+            then {
+                if x > 2 {
+                    break
+                }
+                success = true;
+                x += 1;
+            }
+        }
+        assert!(success)
+    }
+
+    #[test]
+    fn test_empty() {
+        let success;
+        loop_chain! {
+            then { success = true }
         }
         assert!(success)
     }
