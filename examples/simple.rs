@@ -1,12 +1,10 @@
 fn main() {
     loop_chain::loop_chain! {
-        for x in vec![1, 2];
-        println!("first loop");
-        for _ in vec![1, 2];
-        for _ in vec![1, 2];
-        while false;
+        for x in 0..10;
+        if x > 3 { println!("x: {} is larger than 3", x) };
+        for y in 0..10;
         then {
-            println!("{}", x);
+            println!("x: {}, y: {}", x, y);
         }
     }
 }
