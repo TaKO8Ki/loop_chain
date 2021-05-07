@@ -4,7 +4,7 @@
 //! expressions such as `for`, `while`, `while let` and `loop`
 //! without the associated rightward drift.
 //!
-//! # Examples
+//! # Usage
 //!
 //! ## Quick start
 //!

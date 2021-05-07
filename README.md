@@ -17,7 +17,7 @@
 loop_chain = "0.1.0-beta"
 ```
 
-## Examples
+## Usage
 
 ### Quick start
 
@@ -101,7 +101,7 @@ fn main() {
 }
 ```
 
-## Loop expression
+### Loop expression
 
 ```rust
 fn main() {
