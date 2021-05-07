@@ -8,128 +8,79 @@
 //!
 //! ## Quick start
 //!
-//! ```rust,ignore
-//! if_chain! {
-//!     if let Some(y) = x;
-//!     if y.len() == 2;
-//!     if let Some(z) = y;
-//!     then {
-//!         do_stuff_with(z);
-//!     }
-//! }
-//! ```
-//!
-//! becomes
-//!
-//! ```rust,ignore
-//! if let Some(y) = x {
-//!     if y.len() == 2 {
-//!         if let Some(z) = y {
-//!             do_stuff_with(z);
+//! ```rust
+//! fn main() {
+//!     loop_chain::loop_chain! {
+//!         for width in 0..10;
+//!         for height in 0..10;
+//!         then {
+//!             println!("width: {}, height: {}", width, height);
 //!         }
 //!     }
 //! }
 //! ```
 //!
-//! ## Fallback values with `else`
+//! the generated code will be the following:
 //!
-//! ```rust,ignore
-//! if_chain! {
-//!     if let Some(y) = x;
-//!     if let Some(z) = y;
-//!     then {
-//!         do_stuff_with(z)
-//!     } else {
-//!         do_something_else()
+//! ```rust
+//! fn main() {
+//!     for width in 0..10 {
+//!         for height in 0..10 {
+//!             println!("width: {}, height: {}", width, height);
+//!         }
 //!     }
 //! }
 //! ```
 //!
-//! becomes
+//! ## While expression
 //!
-//! ```rust,ignore
-//! if let Some(y) = x {
-//!     if let Some(z) = y {
-//!         do_stuff_with(z)
-//!     } else {
-//!         do_something_else()
-//!     }
-//! } else {
-//!     do_something_else()
-//! }
-//! ```
-//!
-//! ## Intermediate variables with `let`
-//!
-//! ```rust,ignore
-//! if_chain! {
-//!     if let Some(y) = x;
-//!     let z = y.some().complicated().expression();
-//!     if z == 42;
-//!     then {
-//!        do_stuff_with(y);
+//! ```rust
+//! fn main() {
+//!     let mut foo = 0;
+//!     loop_chain::loop_chain! {
+//!         while foo < 3;
+//!         foo += 1;
+//!         for x in 0..10;
+//!         then {
+//!             println!("foo: {}, x: {}", foo, x);
+//!         }
 //!     }
 //! }
 //! ```
 //!
-//! becomes
+//! ## While let expression
 //!
-//! ```rust,ignore
-//! if let Some(y) = x {
-//!     let z = y.some().complicated().expression();
-//!     if z == 42 {
-//!         do_stuff_with(y);
+//! ```rust
+//! fn main() {
+//!     let mut foo = (0..10).collect::<Vec<u8>>();
+//!     loop_chain::loop_chain! {
+//!         while let Some(v) = foo.pop();
+//!         for x in 0..10;
+//!         then {
+//!             println!("v: {}, x: {}", v, x);
+//!         }
 //!     }
 //! }
 //! ```
 //!
-//! ## Type ascription
+//! ## Loop expression
 //!
-//! ```rust,ignore
-//! let mut x = some_generic_computation();
-//! if_chain! {
-//!     if x > 7;
-//!     let y: u32 = another_generic_computation();
-//!     then { x += y }
-//!     else { x += 1 }
+//! ```rust
+//! fn main() {
+//!     let mut foo = 0;
+//!     loop_chain::loop_chain! {
+//!         loop;
+//!         foo += 1;
+//!         if foo > 3 {
+//!             break
+//!         };
+//!         for x in 0..10;
+//!         then {
+//!             println!("foo: {}, x: {}", foo, x);
+//!         }
+//!     }
 //! }
 //! ```
-//!
-//! becomes
-//!
-//! ```rust,ignore
-//! let mut x = some_generic_computation();
-//! if x > 7 {
-//!     let y: u32 = another_generic_computation();
-//!     x += y
-//! } else {
-//!     x += 1
-//! }
-//! ```
-//!
-//! ## Multiple patterns
-//!
-//! ```rust,ignore
-//! if_chain! {
-//!     if let Foo(y) | Bar(y) | Baz(y) = x;
-//!     let Bubbles(z) | Buttercup(z) | Blossom(z) = y;
-//!     then { do_stuff_with(z) }
-//! }
-//! ```
-//!
-//! becomes
-//!
-//! ```rust,ignore
-//! match x {
-//!     Foo(y) | Bar(y) | Baz(y) => match y {
-//!         Bubbles(z) | Buttercup(z) | Blossom(z) => do_stuff_with(z)
-//!     },
-//!     _ => {}
-//! }
-//! ```
-//!
-//! Note that if you use a plain `let`, then `if_chain!` assumes that the
-//! pattern is *irrefutable* (always matches) and doesn't add a fallback branch.
 
 #[macro_export(local_inner_macros)]
 macro_rules! loop_chain {
