@@ -6,7 +6,7 @@
 //!
 //! # Usage
 //!
-//! ## Quick start
+//! ## For expression
 //!
 //! ```rust
 //! fn main() {

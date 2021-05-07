@@ -19,7 +19,7 @@ loop_chain = "0.1.0-beta"
 
 ## Usage
 
-### Quick start
+### For expression
 
 ```rust
 fn main() {
