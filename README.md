@@ -14,7 +14,7 @@
 
 ```toml
 [dependencies]
-loop_chain = "0.1.0-beta"
+loop_chain = "0.1.1"
 ```
 
 ## Usage
