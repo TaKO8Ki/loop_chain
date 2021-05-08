@@ -68,6 +68,7 @@ the generated code will be the following:
 fn main() {
     let mut foo = 0;
     while foo < 3 {
+        foo += 1;
         for x in 0..10 {
             println!("foo: {}, x: {}", foo, x);
         }
